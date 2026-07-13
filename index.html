@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eligent Labs — Automation &amp; AI Agent Development</title>
+<meta name="description" content="Eligent Labs builds automations and AI agents that save teams hours every week — from scraping to outreach to fully autonomous workflows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05070d;
+    --bg-alt: #0a0e1a;
+    --surface: #10152370;
+    --surface-solid: #10152e;
+    --border: #ffffff14;
+    --border-strong: #ffffff26;
+    --text: #eef1f8;
+    --text-dim: #a6adc4;
+    --text-dimmer: #6b7290;
+    --accent: #7c5cff;
+    --accent-bright: #9b82ff;
+    --accent-glow: #7c5cff55;
+    --radius: 18px;
+    --max-width: 1180px;
+    --nav-h: 72px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-h);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Focus visibility for accessibility */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 0 0 8px 0;
+    z-index: 200;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background: rgba(5, 7, 13, 0.7);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  header.nav.scrolled {
+    border-bottom-color: var(--border);
+    background: rgba(5, 7, 13, 0.88);
+  }
+
+  .nav-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent-glow);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .nav-links a {
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+  .nav-cta:hover {
+    background: var(--accent-bright);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    color: var(--text);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--nav-h);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% -10%, #7c5cff33, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 90% 20%, #4d9fff22, transparent 60%),
+      var(--bg);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(to right, #ffffff09 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff09 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 40%, transparent 90%);
+  }
+
+  .hero-content {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 24px 100px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent-bright);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.03;
+    background: linear-gradient(180deg, #ffffff 30%, #b9c0dd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero .tagline {
+    margin-top: 20px;
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+    font-weight: 600;
+    color: var(--accent-bright);
+    letter-spacing: -0.01em;
+  }
+
+  .hero p.sub {
+    margin: 22px auto 0;
+    max-width: 620px;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--text-dim);
+  }
+
+  .hero-actions {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #5b3df5);
+    color: #fff;
+    box-shadow: 0 8px 30px -8px var(--accent-glow);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px -6px var(--accent-glow);
+  }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent-bright);
+    color: var(--accent-bright);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Section shared ---------- */
+  section {
+    padding: 120px 0;
+    position: relative;
+  }
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 64px;
+    text-align: center;
+  }
+  .section-head .kicker {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-bright);
+    margin-bottom: 14px;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .section-head p {
+    margin-top: 16px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+  }
+
+  /* fade-in on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: linear-gradient(180deg, #ffffff08, #ffffff02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 34px 28px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-strong);
+    background: linear-gradient(180deg, #ffffff0f, #ffffff03);
+  }
+
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #7c5cff2e, #4d9fff1a);
+    border: 1px solid var(--border-strong);
+    color: var(--accent-bright);
+    margin-bottom: 22px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .card p {
+    color: var(--text-dim);
+    font-size: 0.97rem;
+  }
+
+  /* ---------- About ---------- */
+  .about-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .about-wrap p {
+    color: var(--text-dim);
+    font-size: 1.08rem;
+  }
+
+  .stats-row {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .stat-pill {
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .stat-pill strong {
+    color: var(--accent-bright);
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
+    align-items: flex-start;
+  }
+  @media (max-width: 860px) {
+    .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .contact-info h2 {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .contact-info p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    margin-bottom: 36px;
+    max-width: 420px;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  .contact-detail:last-of-type { border-bottom: 1px solid var(--border); }
+  .contact-detail .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-bright);
+    flex-shrink: 0;
+  }
+  .contact-detail .label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dimmer);
+    margin-bottom: 2px;
+  }
+  .contact-detail .value {
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+
+  .socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .socials a {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .socials a:hover {
+    color: var(--accent-bright);
+    border-color: var(--accent-bright);
+    transform: translateY(-3px);
+  }
+
+  .form-card {
+    background: var(--surface-solid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: #ffffff06;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.96rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    resize: vertical;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-dimmer);
+  }
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    background: #ffffff0a;
+    outline: none;
+  }
+  .field textarea { min-height: 130px; }
+
+  .field .error {
+    display: none;
+    color: #ff8080;
+    font-size: 0.82rem;
+    margin-top: 6px;
+  }
+  .field.invalid input,
+  .field.invalid textarea {
+    border-color: #ff6b6b;
+  }
+  .field.invalid .error {
+    display: block;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #5b3df5);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -8px var(--accent-glow);
+  }
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .form-success {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: #1fbf6a1a;
+    border: 1px solid #1fbf6a44;
+    color: #4fdb92;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .form-success.show { display: flex; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer p {
+    color: var(--text-dimmer);
+    font-size: 0.88rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 22px;
+  }
+  .footer-links a {
+    color: var(--text-dimmer);
+    font-size: 0.88rem;
+    transition: color 0.2s ease;
+  }
+  .footer-links a:hover { color: var(--accent-bright); }
+
+  /* ---------- Mobile nav ---------- */
+  @media (max-width: 760px) {
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: rgba(5, 7, 13, 0.98);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .nav-links.open { max-height: 400px; }
+    .nav-links a {
+      padding: 18px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-links .nav-cta {
+      margin: 16px 24px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 90px 0; }
+    .hero-content { padding: 60px 20px 70px; }
+    .form-card { padding: 26px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="Eligent Labs home">
+      <span class="dot" aria-hidden="true"></span>
+      Eligent Labs
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="2" y1="5" x2="18" y2="5"></line>
+        <line x1="2" y1="10" x2="18" y2="10"></line>
+        <line x1="2" y1="15" x2="18" y2="15"></line>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="eyebrow">Automation &amp; AI Agent Development</span>
+      <h1>Eligent Labs</h1>
+      <p class="tagline">"Automation that works while you don't."</p>
+      <p class="sub">I build automations and AI agents that save teams hours every week — from scraping to outreach to fully autonomous workflows.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#services" class="btn btn-secondary">See what I build</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">What I Build</div>
+        <h2>Services built for scale</h2>
+        <p>Four core capabilities, tailored to how your team actually works.</p>
+      </div>
+      <div class="services-grid">
+        <div class="card reveal">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
+              <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path>
+              <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"></path>
+            </svg>
+          </div>
+          <h3>Web &amp; Data Scraping</h3>
+          <p>Reliable scrapers that collect, clean, and structure data from any source at scale, with anti-blocking and scheduling built in.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2 11 13"></path>
+              <path d="M22 2 15 22l-4-9-9-4 20-7Z"></path>
+            </svg>
+          </div>
+          <h3>Outreach Automation</h3>
+          <p>Automated email, LinkedIn, and multi-channel outreach systems with personalization, follow-ups, and CRM syncing.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+              <circle cx="12" cy="5" r="2"></circle>
+              <path d="M12 7v4"></path>
+              <line x1="8" y1="16" x2="8" y2="16.01"></line>
+              <line x1="16" y1="16" x2="16" y2="16.01"></line>
+            </svg>
+          </div>
+          <h3>AI Agents</h3>
+          <p>Custom autonomous agents that reason, use tools, and handle multi-step tasks — from research to customer support to internal ops.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.6" y1="10.6" x2="15.4" y2="6.4"></line>
+              <line x1="8.6" y1="13.4" x2="15.4" y2="17.6"></line>
+            </svg>
+          </div>
+          <h3>Custom Bots &amp; Workflows</h3>
+          <p>Tailored bots and end-to-end automations that connect your tools and remove repetitive manual work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-wrap">
+        <div class="section-head reveal" style="margin-bottom: 28px;">
+          <div class="kicker">About</div>
+          <h2>About</h2>
+        </div>
+        <p class="reveal">I'm an automation developer with 4 years of experience building bots and automated systems that just work. Over that time I've shipped a wide range of projects — web scrapers pulling structured data at scale, outreach systems that run personalized campaigns on autopilot, and AI agents that handle complex, multi-step tasks on their own. Eligent Labs is where I take messy, repetitive, time-consuming processes and turn them into clean automated pipelines. If a task can be automated, I can build it.</p>
+        <div class="stats-row reveal">
+          <span class="stat-pill"><strong>4+ years</strong> experience</span>
+          <span class="stat-pill"><strong>Dozens</strong> of automations shipped</span>
+          <span class="stat-pill">Scraping</span>
+          <span class="stat-pill">Outreach</span>
+          <span class="stat-pill">AI Agents</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container contact-wrap">
+      <div class="contact-info reveal">
+        <div class="kicker">Contact</div>
+        <h2>Let's build something</h2>
+        <p>Have a process you want automated? Send a message and I'll get back to you.</p>
+
+        <div class="contact-detail">
+          <span class="icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 6-10 7L2 6"></path>
+            </svg>
+          </span>
+          <div>
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:hello@eligentlabs.com">hello@eligentlabs.com</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </span>
+          <div>
+            <div class="label">Location</div>
+            <div class="value">Available worldwide / remote</div>
+          </div>
+        </div>
+
+        <div class="socials">
+          <a href="#" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <a href="#" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h3l-7.5 8.6L22 22h-6.9l-5.4-6.6L3.5 22H.5l8-9.2L2 2h7l4.9 6L18 2z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <form id="contactForm" novalidate>
+          <div class="field" id="nameField">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
+            <div class="error">Please enter your name.</div>
+          </div>
+          <div class="field" id="emailField">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+            <div class="error">Please enter a valid email address.</div>
+          </div>
+          <div class="field" id="messageField">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about the process you want automated..."></textarea>
+            <div class="error">Please enter a message (at least 10 characters).</div>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Send message</button>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+            <span>Thanks! Your message has been received — I'll get back to you soon.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>&copy; 2026 Eligent Labs. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav background on scroll
+  const nav = document.getElementById('siteNav');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal animation
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+
+  // Contact form validation + fake submit handler
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+
+  const fields = {
+    name: {
+      el: document.getElementById('name'),
+      wrap: document.getElementById('nameField'),
+      validate: v => v.trim().length > 0
+    },
+    email: {
+      el: document.getElementById('email'),
+      wrap: document.getElementById('emailField'),
+      validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+    },
+    message: {
+      el: document.getElementById('message'),
+      wrap: document.getElementById('messageField'),
+      validate: v => v.trim().length >= 10
+    }
+  };
+
+  Object.values(fields).forEach(field => {
+    field.el.addEventListener('input', () => {
+      if (field.validate(field.el.value)) {
+        field.wrap.classList.remove('invalid');
+      }
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formSuccess.classList.remove('show');
+
+    let allValid = true;
+    Object.values(fields).forEach(field => {
+      const valid = field.validate(field.el.value);
+      field.wrap.classList.toggle('invalid', !valid);
+      if (!valid) allValid = false;
+    });
+
+    if (!allValid) {
+      const firstInvalid = form.querySelector('.invalid input, .invalid textarea');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Placeholder submit handler — wire up to a real backend/email service later.
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+      formSuccess.classList.add('show');
+      form.reset();
+      Object.values(fields).forEach(field => field.wrap.classList.remove('invalid'));
+    }, 700);
+  });
+</script>
+
+</body>
+</html>
