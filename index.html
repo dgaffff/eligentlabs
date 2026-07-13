@@ -10,21 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #05070d;
-    --bg-alt: #0a0e1a;
-    --surface: #10152370;
-    --surface-solid: #10152e;
-    --border: #ffffff14;
-    --border-strong: #ffffff26;
-    --text: #eef1f8;
-    --text-dim: #a6adc4;
-    --text-dimmer: #6b7290;
+    --bg: #000000;
+    --bg-1: #050506;
+    --surface: #ffffff08;
+    --surface-strong: #ffffff10;
+    --border: #ffffff16;
+    --border-strong: #ffffff2a;
+    --text: #f6f6f8;
+    --text-dim: #9a9aa6;
+    --text-dimmer: #63636d;
     --accent: #7c5cff;
     --accent-bright: #9b82ff;
+    --accent-2: #4d9fff;
     --accent-glow: #7c5cff55;
     --radius: 18px;
     --max-width: 1180px;
-    --nav-h: 72px;
+    --nav-h: 76px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,7 +59,6 @@
     padding: 0 24px;
   }
 
-  /* Focus visibility for accessibility */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
@@ -78,9 +78,7 @@
     border-radius: 0 0 8px 0;
     z-index: 200;
   }
-  .skip-link:focus {
-    left: 0;
-  }
+  .skip-link:focus { left: 0; }
 
   /* ---------- Nav ---------- */
   header.nav {
@@ -92,15 +90,15 @@
     display: flex;
     align-items: center;
     z-index: 100;
-    background: rgba(5, 7, 13, 0.7);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s ease, background 0.3s ease;
   }
   header.nav.scrolled {
     border-bottom-color: var(--border);
-    background: rgba(5, 7, 13, 0.88);
+    background: rgba(0, 0, 0, 0.9);
   }
 
   .nav-inner {
@@ -112,18 +110,24 @@
 
   .logo {
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
-  .logo .dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 14px var(--accent-glow);
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.78rem;
+    color: #000;
+    flex-shrink: 0;
   }
 
   .nav-links {
@@ -132,23 +136,21 @@
     gap: 36px;
   }
   .nav-links a {
-    font-size: 0.94rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--text-dim);
     transition: color 0.2s ease;
-    position: relative;
   }
   .nav-links a:hover { color: var(--text); }
 
   .nav-cta {
-    padding: 10px 20px;
+    padding: 11px 22px;
     border-radius: 999px;
     background: var(--accent);
     color: #fff !important;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.86rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    box-shadow: 0 0 0 0 var(--accent-glow);
   }
   .nav-cta:hover {
     background: var(--accent-bright);
@@ -184,8 +186,8 @@
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(ellipse 60% 50% at 50% -10%, #7c5cff33, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 90% 20%, #4d9fff22, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 12% 15%, #7c5cff2e, transparent 60%),
+      radial-gradient(ellipse 45% 45% at 95% 10%, #4d9fff20, transparent 60%),
       var(--bg);
   }
   .hero-grid {
@@ -193,59 +195,72 @@
     inset: 0;
     z-index: -1;
     background-image:
-      linear-gradient(to right, #ffffff09 1px, transparent 1px),
-      linear-gradient(to bottom, #ffffff09 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 40%, transparent 90%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 40%, transparent 90%);
+      linear-gradient(to right, #ffffff0a 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff0a 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: radial-gradient(ellipse 80% 70% at 30% 30%, black 30%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 30%, black 30%, transparent 90%);
   }
 
-  .hero-content {
-    max-width: 780px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 80px 24px 100px;
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 40px;
+    padding: 70px 0 60px;
+  }
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; padding-top: 40px; }
   }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 7px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 700;
     color: var(--accent-bright);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--accent-bright);
+    display: inline-block;
   }
 
   .hero h1 {
-    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-size: clamp(3rem, 6.4vw, 5.6rem);
     font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 1.03;
-    background: linear-gradient(180deg, #ffffff 30%, #b9c0dd 100%);
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent-bright), var(--accent-2));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .hero .tagline {
-    margin-top: 20px;
-    font-size: clamp(1.05rem, 2vw, 1.4rem);
-    font-weight: 600;
-    color: var(--accent-bright);
+    margin-top: 22px;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    font-weight: 700;
+    color: var(--text);
     letter-spacing: -0.01em;
+  }
+  .hero .tagline em {
+    font-style: normal;
+    color: var(--accent-bright);
   }
 
   .hero p.sub {
-    margin: 22px auto 0;
-    max-width: 620px;
-    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    margin: 20px 0 0;
+    max-width: 560px;
+    font-size: clamp(1rem, 1.4vw, 1.1rem);
     color: var(--text-dim);
   }
 
@@ -253,7 +268,6 @@
     margin-top: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
   }
@@ -265,8 +279,8 @@
     gap: 8px;
     padding: 15px 30px;
     border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.98rem;
+    font-weight: 700;
+    font-size: 0.96rem;
     cursor: pointer;
     border: 1px solid transparent;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
@@ -292,74 +306,152 @@
     transform: translateY(-2px);
   }
 
-  /* ---------- Section shared ---------- */
-  section {
-    padding: 120px 0;
+  /* Hero visual mark */
+  .hero-visual {
     position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .section-head {
-    max-width: 640px;
-    margin: 0 auto 64px;
-    text-align: center;
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #7c5cff2a, transparent 70%);
+    filter: blur(10px);
   }
+  .hero-visual-ring {
+    position: absolute;
+    inset: 14%;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+  }
+  .hero-visual-ring.inner {
+    inset: 26%;
+    border-style: dashed;
+    border-color: var(--border);
+  }
+  .hero-mark {
+    position: relative;
+    width: 42%;
+    z-index: 2;
+    filter: drop-shadow(0 0 40px var(--accent-glow));
+  }
+  .hero-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid var(--border-strong);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    backdrop-filter: blur(6px);
+    white-space: nowrap;
+  }
+  .hero-badge .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    box-shadow: 0 0 8px var(--accent-bright);
+  }
+  .hero-badge.b1 { top: 4%; left: -4%; }
+  .hero-badge.b2 { bottom: 12%; right: -8%; }
+  .hero-badge.b3 { bottom: -2%; left: 14%; }
+  @media (max-width: 900px) {
+    .hero-visual { max-width: 320px; margin-top: 20px; }
+    .hero-badge { font-size: 0.64rem; padding: 6px 10px; }
+    .hero-badge.b1 { left: 0; }
+    .hero-badge.b2 { right: 0; }
+  }
+
+  /* ---------- Section shared ---------- */
+  section { padding: 130px 0; position: relative; }
+  .section-head { max-width: 680px; margin: 0 auto 60px; }
+  .section-head.center { text-align: center; margin-left: auto; margin-right: auto; }
   .section-head .kicker {
-    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--accent-bright);
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  .section-head .kicker::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--accent-bright);
   }
   .section-head h2 {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
+  .section-head h2 .accent { color: var(--accent-bright); }
   .section-head p {
-    margin-top: 16px;
+    margin-top: 18px;
     color: var(--text-dim);
     font-size: 1.05rem;
   }
 
-  /* fade-in on scroll */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
   }
-  .reveal.in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
 
   /* ---------- Services ---------- */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
   }
 
   .card {
-    background: linear-gradient(180deg, #ffffff08, #ffffff02);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 34px 28px;
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    background: var(--bg-1);
+    padding: 38px 30px;
+    transition: background 0.3s ease;
+    position: relative;
   }
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: var(--border-strong);
-    background: linear-gradient(180deg, #ffffff0f, #ffffff03);
+  .card:hover { background: #0d0d10; }
+
+  .card .index {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-dimmer);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    display: block;
   }
 
   .card-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #7c5cff2e, #4d9fff1a);
+    background: linear-gradient(135deg, #7c5cff26, #4d9fff14);
     border: 1px solid var(--border-strong);
     color: var(--accent-bright);
     margin-bottom: 22px;
@@ -367,48 +459,108 @@
 
   .card h3 {
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.01em;
     margin-bottom: 10px;
   }
   .card p {
     color: var(--text-dim);
-    font-size: 0.97rem;
+    font-size: 0.96rem;
   }
 
   /* ---------- About ---------- */
   .about-wrap {
     display: grid;
     grid-template-columns: 1fr;
-    max-width: 780px;
+    max-width: 800px;
     margin: 0 auto;
   }
-  .about-wrap p {
+  .about-wrap p.body-text {
     color: var(--text-dim);
-    font-size: 1.08rem;
+    font-size: 1.1rem;
   }
 
-  .stats-row {
-    margin-top: 56px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
+  .stats-bar {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-  .stat-pill {
-    padding: 12px 22px;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    font-size: 0.92rem;
-    font-weight: 600;
+  .stat-cell {
+    padding: 30px 20px;
+    text-align: center;
+    border-left: 1px solid var(--border);
+  }
+  .stat-cell:first-child { border-left: none; }
+  .stat-cell .num {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .stat-cell:last-child .num { color: var(--accent-bright); }
+  .stat-cell .label {
+    margin-top: 8px;
+    font-size: 0.86rem;
     color: var(--text-dim);
+    font-weight: 500;
   }
-  .stat-pill strong {
-    color: var(--accent-bright);
+  @media (max-width: 640px) {
+    .stats-bar { grid-template-columns: 1fr; }
+    .stat-cell { border-left: none; border-top: 1px solid var(--border); }
+    .stat-cell:first-child { border-top: none; }
   }
 
   /* ---------- Contact ---------- */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--accent) 0%, #5b3df5 55%, var(--accent-2) 130%);
+    border-radius: 24px;
+    padding: 56px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, #ffffff14 1px, transparent 1px), linear-gradient(to bottom, #ffffff14 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 100% at 100% 0%, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 100% at 100% 0%, black, transparent 70%);
+  }
+  .cta-banner-text { position: relative; z-index: 1; }
+  .cta-banner h2 {
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .cta-banner p {
+    margin-top: 12px;
+    color: #ffffffcc;
+    font-size: 1.02rem;
+    max-width: 420px;
+  }
+  .cta-banner .btn {
+    position: relative;
+    z-index: 1;
+    background: #000;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .cta-banner .btn:hover { background: #171717; transform: translateY(-2px); }
+  @media (max-width: 640px) {
+    .cta-banner { padding: 40px 28px; }
+  }
+
   .contact-wrap {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -419,24 +571,35 @@
     .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
   }
 
-  .contact-info h2 {
-    font-size: clamp(2rem, 4vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  .contact-info .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-bright);
     margin-bottom: 16px;
   }
-  .contact-info p {
-    color: var(--text-dim);
-    font-size: 1.05rem;
-    margin-bottom: 36px;
-    max-width: 420px;
+  .contact-info .kicker::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--accent-bright);
+  }
+  .contact-info h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
   }
 
   .contact-detail {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 14px 0;
+    padding: 16px 0;
     border-top: 1px solid var(--border);
   }
   .contact-detail:last-of-type { border-bottom: 1px solid var(--border); }
@@ -453,14 +616,14 @@
     flex-shrink: 0;
   }
   .contact-detail .label {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--text-dimmer);
     margin-bottom: 2px;
   }
   .contact-detail .value {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.98rem;
   }
 
@@ -488,19 +651,17 @@
   }
 
   .form-card {
-    background: var(--surface-solid);
+    background: var(--bg-1);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 36px;
   }
 
-  .field {
-    margin-bottom: 20px;
-  }
+  .field { margin-bottom: 20px; }
   .field label {
     display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.84rem;
+    font-weight: 700;
     color: var(--text-dim);
     margin-bottom: 8px;
   }
@@ -518,9 +679,7 @@
     resize: vertical;
   }
   .field input::placeholder,
-  .field textarea::placeholder {
-    color: var(--text-dimmer);
-  }
+  .field textarea::placeholder { color: var(--text-dimmer); }
   .field input:focus,
   .field textarea:focus {
     border-color: var(--accent);
@@ -536,12 +695,8 @@
     margin-top: 6px;
   }
   .field.invalid input,
-  .field.invalid textarea {
-    border-color: #ff6b6b;
-  }
-  .field.invalid .error {
-    display: block;
-  }
+  .field.invalid textarea { border-color: #ff6b6b; }
+  .field.invalid .error { display: block; }
 
   .form-submit {
     width: 100%;
@@ -550,7 +705,7 @@
     border-radius: 10px;
     background: linear-gradient(135deg, var(--accent), #5b3df5);
     color: #fff;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1rem;
     cursor: pointer;
     font-family: inherit;
@@ -560,11 +715,7 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 28px -8px var(--accent-glow);
   }
-  .form-submit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
   .form-success {
     display: none;
@@ -577,15 +728,12 @@
     border: 1px solid #1fbf6a44;
     color: #4fdb92;
     font-size: 0.92rem;
-    font-weight: 600;
+    font-weight: 700;
   }
   .form-success.show { display: flex; }
 
   /* ---------- Footer ---------- */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 36px 0;
-  }
+  footer { border-top: 1px solid var(--border); padding: 40px 0; }
   .footer-inner {
     display: flex;
     align-items: center;
@@ -593,19 +741,9 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-  footer p {
-    color: var(--text-dimmer);
-    font-size: 0.88rem;
-  }
-  .footer-links {
-    display: flex;
-    gap: 22px;
-  }
-  .footer-links a {
-    color: var(--text-dimmer);
-    font-size: 0.88rem;
-    transition: color 0.2s ease;
-  }
+  footer p { color: var(--text-dimmer); font-size: 0.86rem; }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-links a { color: var(--text-dimmer); font-size: 0.86rem; transition: color 0.2s ease; }
   .footer-links a:hover { color: var(--accent-bright); }
 
   /* ---------- Mobile nav ---------- */
@@ -619,7 +757,7 @@
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-      background: rgba(5, 7, 13, 0.98);
+      background: rgba(0, 0, 0, 0.98);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       max-height: 0;
@@ -627,20 +765,15 @@
       transition: max-height 0.35s ease;
     }
     .nav-links.open { max-height: 400px; }
-    .nav-links a {
-      padding: 18px 24px;
-      border-top: 1px solid var(--border);
-    }
-    .nav-links .nav-cta {
-      margin: 16px 24px;
-      text-align: center;
-    }
+    .nav-links a { padding: 18px 24px; border-top: 1px solid var(--border); }
+    .nav-links .nav-cta { margin: 16px 24px; text-align: center; }
   }
 
   @media (max-width: 480px) {
     section { padding: 90px 0; }
-    .hero-content { padding: 60px 20px 70px; }
+    .hero-inner { padding: 40px 0 40px; }
     .form-card { padding: 26px 20px; }
+    .cta-banner { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -651,7 +784,7 @@
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
     <a href="#top" class="logo" aria-label="Eligent Labs home">
-      <span class="dot" aria-hidden="true"></span>
+      <span class="logo-mark" aria-hidden="true">EL</span>
       Eligent Labs
     </a>
     <nav>
@@ -677,14 +810,33 @@
   <section class="hero" id="top">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-content">
-      <span class="eyebrow">Automation &amp; AI Agent Development</span>
-      <h1>Eligent Labs</h1>
-      <p class="tagline">"Automation that works while you don't."</p>
-      <p class="sub">I build automations and AI agents that save teams hours every week — from scraping to outreach to fully autonomous workflows.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Get in touch</a>
-        <a href="#services" class="btn btn-secondary">See what I build</a>
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">Automation &amp; AI Agent Development</span>
+        <h1>Eligent <span class="grad">Labs</span></h1>
+        <p class="tagline">"Automation that works <em>while you don't.</em>"</p>
+        <p class="sub">I build automations and AI agents that save teams hours every week — from scraping to outreach to fully autonomous workflows.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Get in touch</a>
+          <a href="#services" class="btn btn-secondary">See what I build</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual-ring"></div>
+        <div class="hero-visual-ring inner"></div>
+        <svg class="hero-mark" viewBox="0 0 100 100" fill="none">
+          <defs>
+            <linearGradient id="markGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#9b82ff"/>
+              <stop offset="1" stop-color="#4d9fff"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 4 92 50 50 96 8 50Z" stroke="url(#markGrad)" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M50 26 74 50 50 74 26 50Z" fill="url(#markGrad)" opacity="0.9"/>
+        </svg>
+        <span class="hero-badge b1"><span class="pulse"></span>Always on</span>
+        <span class="hero-badge b2"><span class="pulse"></span>Multi-step reasoning</span>
+        <span class="hero-badge b3"><span class="pulse"></span>Runs unattended</span>
       </div>
     </div>
   </section>
@@ -694,11 +846,12 @@
     <div class="container">
       <div class="section-head reveal">
         <div class="kicker">What I Build</div>
-        <h2>Services built for scale</h2>
-        <p>Four core capabilities, tailored to how your team actually works.</p>
+        <h2>Four tools. One goal: <span class="accent">work off your plate.</span></h2>
+        <p>Automation systems built to run on their own, so your team doesn't have to.</p>
       </div>
       <div class="services-grid">
         <div class="card reveal">
+          <span class="index">01</span>
           <div class="card-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
@@ -710,6 +863,7 @@
           <p>Reliable scrapers that collect, clean, and structure data from any source at scale, with anti-blocking and scheduling built in.</p>
         </div>
         <div class="card reveal">
+          <span class="index">02</span>
           <div class="card-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 2 11 13"></path>
@@ -720,6 +874,7 @@
           <p>Automated email, LinkedIn, and multi-channel outreach systems with personalization, follow-ups, and CRM syncing.</p>
         </div>
         <div class="card reveal">
+          <span class="index">03</span>
           <div class="card-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="10" rx="2"></rect>
@@ -733,6 +888,7 @@
           <p>Custom autonomous agents that reason, use tools, and handle multi-step tasks — from research to customer support to internal ops.</p>
         </div>
         <div class="card reveal">
+          <span class="index">04</span>
           <div class="card-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="18" cy="5" r="3"></circle>
@@ -757,13 +913,20 @@
           <div class="kicker">About</div>
           <h2>About</h2>
         </div>
-        <p class="reveal">I'm an automation developer with 4 years of experience building bots and automated systems that just work. Over that time I've shipped a wide range of projects — web scrapers pulling structured data at scale, outreach systems that run personalized campaigns on autopilot, and AI agents that handle complex, multi-step tasks on their own. Eligent Labs is where I take messy, repetitive, time-consuming processes and turn them into clean automated pipelines. If a task can be automated, I can build it.</p>
-        <div class="stats-row reveal">
-          <span class="stat-pill"><strong>4+ years</strong> experience</span>
-          <span class="stat-pill"><strong>Dozens</strong> of automations shipped</span>
-          <span class="stat-pill">Scraping</span>
-          <span class="stat-pill">Outreach</span>
-          <span class="stat-pill">AI Agents</span>
+        <p class="body-text reveal">I'm an automation developer with 4 years of experience building bots and automated systems that just work. Over that time I've shipped a wide range of projects — web scrapers pulling structured data at scale, outreach systems that run personalized campaigns on autopilot, and AI agents that handle complex, multi-step tasks on their own. Eligent Labs is where I take messy, repetitive, time-consuming processes and turn them into clean automated pipelines. If a task can be automated, I can build it.</p>
+        <div class="stats-bar reveal">
+          <div class="stat-cell">
+            <div class="num">4+</div>
+            <div class="label">Years experience</div>
+          </div>
+          <div class="stat-cell">
+            <div class="num">Dozens</div>
+            <div class="label">Automations shipped</div>
+          </div>
+          <div class="stat-cell">
+            <div class="num">3</div>
+            <div class="label">Specialties — Scraping · Outreach · AI Agents</div>
+          </div>
         </div>
       </div>
     </div>
@@ -771,83 +934,92 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="container contact-wrap">
-      <div class="contact-info reveal">
-        <div class="kicker">Contact</div>
-        <h2>Let's build something</h2>
-        <p>Have a process you want automated? Send a message and I'll get back to you.</p>
-
-        <div class="contact-detail">
-          <span class="icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              <path d="m22 6-10 7L2 6"></path>
-            </svg>
-          </span>
-          <div>
-            <div class="label">Email</div>
-            <div class="value"><a href="mailto:hello@eligentlabs.com">hello@eligentlabs.com</a></div>
-          </div>
+    <div class="container">
+      <div class="cta-banner reveal">
+        <div class="cta-banner-text">
+          <h2>Let's build something.</h2>
+          <p>Have a process you want automated? Send a message and I'll get back to you.</p>
         </div>
-        <div class="contact-detail">
-          <span class="icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-          </span>
-          <div>
-            <div class="label">Location</div>
-            <div class="value">Available worldwide / remote</div>
-          </div>
-        </div>
-
-        <div class="socials">
-          <a href="#" aria-label="LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect x="2" y="9" width="4" height="12"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-          </a>
-          <a href="#" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
-          </a>
-          <a href="#" aria-label="X (Twitter)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h3l-7.5 8.6L22 22h-6.9l-5.4-6.6L3.5 22H.5l8-9.2L2 2h7l4.9 6L18 2z"></path>
-            </svg>
-          </a>
-        </div>
+        <a href="#contactForm" class="btn">Send a message</a>
       </div>
 
-      <div class="form-card reveal">
-        <form id="contactForm" novalidate>
-          <div class="field" id="nameField">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
-            <div class="error">Please enter your name.</div>
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <div class="kicker">Contact</div>
+          <h3>Get in touch</h3>
+
+          <div class="contact-detail">
+            <span class="icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 6-10 7L2 6"></path>
+              </svg>
+            </span>
+            <div>
+              <div class="label">Email</div>
+              <div class="value"><a href="mailto:hello@eligentlabs.com">hello@eligentlabs.com</a></div>
+            </div>
           </div>
-          <div class="field" id="emailField">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
-            <div class="error">Please enter a valid email address.</div>
+          <div class="contact-detail">
+            <span class="icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div>
+              <div class="label">Location</div>
+              <div class="value">Available worldwide / remote</div>
+            </div>
           </div>
-          <div class="field" id="messageField">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell me about the process you want automated..."></textarea>
-            <div class="error">Please enter a message (at least 10 characters).</div>
+
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href="#" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="X (Twitter)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h3l-7.5 8.6L22 22h-6.9l-5.4-6.6L3.5 22H.5l8-9.2L2 2h7l4.9 6L18 2z"></path>
+              </svg>
+            </a>
           </div>
-          <button type="submit" class="form-submit" id="submitBtn">Send message</button>
-          <div class="form-success" id="formSuccess" role="status" aria-live="polite">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"></path>
-            </svg>
-            <span>Thanks! Your message has been received — I'll get back to you soon.</span>
-          </div>
-        </form>
+        </div>
+
+        <div class="form-card reveal" id="contactFormCard">
+          <form id="contactForm" novalidate>
+            <div class="field" id="nameField">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
+              <div class="error">Please enter your name.</div>
+            </div>
+            <div class="field" id="emailField">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+              <div class="error">Please enter a valid email address.</div>
+            </div>
+            <div class="field" id="messageField">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about the process you want automated..."></textarea>
+              <div class="error">Please enter a message (at least 10 characters).</div>
+            </div>
+            <button type="submit" class="form-submit" id="submitBtn">Send message</button>
+            <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              <span>Thanks! Your message has been received — I'll get back to you soon.</span>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
