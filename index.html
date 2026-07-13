@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eligent Labs — Automation &amp; AI Agent Development</title>
 <meta name="description" content="Eligent Labs builds the bots, scrapers, and AI agents that handle your repetitive work for you — reliably, around the clock, and fully owned by you.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -85,13 +86,9 @@
 
   .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
-  .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
-  .logo-mark {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono); font-weight: 700; font-size: 0.74rem; color: #050810; flex-shrink: 0;
-  }
+  .logo { display: flex; align-items: center; }
+  .logo-svg { height: 28px; width: auto; display: block; }
+  .footer-brand .logo-svg { height: 32px; }
 
   .nav-links { display: flex; align-items: center; gap: 34px; }
   .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-dim); transition: color 0.2s ease; }
@@ -373,8 +370,12 @@
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
     <a href="#top" class="logo" aria-label="Eligent Labs home">
-      <span class="logo-mark" aria-hidden="true">EL</span>
-      Eligent Labs
+      <svg class="logo-svg" viewBox="0 0 300 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <rect x="12" y="16" width="64" height="64" rx="16" fill="#2DE1C2"/>
+        <path d="M34 36 L48 48 L34 60" stroke="#0A0E17" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="50" y="54" width="13" height="5.5" rx="2.75" fill="#0A0E17"/>
+        <text x="96" y="57" font-family="'Space Grotesk', system-ui, sans-serif" font-size="30" font-weight="700" fill="#E7ECF3">eligent<tspan fill="#2DE1C2">labs</tspan></text>
+      </svg>
     </a>
     <nav>
       <ul class="nav-links" id="navLinks">
@@ -694,8 +695,12 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#top" class="logo" aria-label="Eligent Labs home">
-          <span class="logo-mark" aria-hidden="true">EL</span>
-          Eligent Labs
+          <svg class="logo-svg" viewBox="0 0 300 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <rect x="12" y="16" width="64" height="64" rx="16" fill="#2DE1C2"/>
+            <path d="M34 36 L48 48 L34 60" stroke="#0A0E17" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect x="50" y="54" width="13" height="5.5" rx="2.75" fill="#0A0E17"/>
+            <text x="96" y="57" font-family="'Space Grotesk', system-ui, sans-serif" font-size="30" font-weight="700" fill="#E7ECF3">eligent<tspan fill="#2DE1C2">labs</tspan></text>
+          </svg>
         </a>
         <p>Automation that works while you don't.</p>
       </div>
